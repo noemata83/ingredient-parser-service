@@ -1,9 +1,7 @@
 from flask import Flask, request, jsonify
-from nltk.tokenize import PunktSentenceTokenizer
 import pycrfsuite
 
-from utils import *
-
+from utils import parse_ingredient
 
 app = Flask(__name__)
 

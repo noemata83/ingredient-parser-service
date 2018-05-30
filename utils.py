@@ -99,6 +99,12 @@ def clumpFractions(s):
     """
     return re.sub(r'(\d+)\s+(\d)/(\d)', r'\1$\2/\3', s)
 
+def unclump(s):
+    """
+    Replacess $'s with spaces. The reverse of clumpFractions.
+    """
+    return re.sub(r'\$', " ", s)
+
 def cleanUnicodeFractions(s):
     """
     Replace unicode fractions with ascii representation, preceded by a
@@ -200,7 +206,8 @@ def format_ingredient_output(tagger_output, display=False):
         # HACK: If this token is a unit, singularize it so Scoop accepts it.
         if tag == "unit":
             token = singularize(token)
-            
+
+        token = unclump(token)    
         data[-1][tag].append(token)
     
     # reassemble the output into a list of dicts.
@@ -212,8 +219,8 @@ def format_ingredient_output(tagger_output, display=False):
 
     # Add the raw ingredient phrase
     for i,_ in enumerate(output):
-        output[i]["input"] = smartJoin(
-            [" ".join(tokens) for k, tokens in display[i]])
+        output[i]["input"] = unclump(smartJoin(
+            [" ".join(tokens) for k, tokens in display[i]]))
 
     return output
 
