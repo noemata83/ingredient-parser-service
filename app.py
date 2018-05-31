@@ -3,14 +3,19 @@ import pycrfsuite
 
 from utils import parse_ingredient
 
-app = Flask(__name__)
+application = Flask(__name__)
+app = application
+
+@app.route('/')
+def hello():
+    return "Hello world"
 
 @app.route('/parse', methods=['POST'])
 def parse_ingredients():
     data = request.get_json()
     
     tagger = pycrfsuite.Tagger()
-    tagger.open('data/trained_pycrfsuite')
+    tagger.open('static/trained_pycrfsuite')
 
     ingredient_sentences = data['ingredients']
     ingredients = []
@@ -20,3 +25,7 @@ def parse_ingredients():
     return jsonify({
         "ingredients": ingredients,
     })
+
+if __name__ == "__main__":
+    app.debug = True
+    app.run()
