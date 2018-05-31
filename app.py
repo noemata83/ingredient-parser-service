@@ -1,10 +1,13 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import pycrfsuite
 
 from utils import parse_ingredient
 
 application = Flask(__name__)
 app = application
+
+CORS(app)
 
 @app.route('/')
 def hello():
