@@ -11,7 +11,7 @@ CORS(app)
 
 @app.route('/')
 def hello():
-    return "Hello world"
+    return "Hello. Welcome to the Ingredient Phrase Tagger Service. To tag ingredient phrase, send a json object with an array of ingredient strings under a key of \"ingredients\" to /parse. Enjoy!"
 
 @app.route('/parse', methods=['POST'])
 def parse_ingredients():
